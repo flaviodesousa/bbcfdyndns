@@ -1,0 +1,9 @@
+# see https://github.com/flaviodesousa/bbcfdyndns
+# Account ID and Zone ID are found on the zone dashboard page
+BBCFDYNDNS_CF_ACCOUNT_ID=xx..xx
+BBCFDYNDNS_CF_ZONE_ID=xx..xx
+# Generated on the API section
+BBCFDYNDNS_CF_API_TOKEN=xx...xx
+BBCFDYNDNS_ZONE=example.com
+BBCFDYNDNS_HOST=my.example.com
+BBCFDYNDNS_CURRENT=/var/bbcfdyndns

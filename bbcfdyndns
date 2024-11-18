@@ -1,0 +1,28 @@
+#! /bin/bash
+
+CONF_FILE=/etc/bbcfdyndns/bbcfdyndns.conf
+
+if [[ ! -f ${CONF_FILE} ]]; then
+    echo ${CONF_FILE} missing
+    exit 1
+fi
+
+if [[ $(stat -c  "%u" ${CONF_FILE}) != 0 || $(stat -c "%A" ${CONF_FILE}) !=  "-rw-r--r--" ]]; then
+    echo ${CONF_FILE} must be owned by and only writable by root
+    exit 1
+fi
+
+. ${CONF_FILE}
+
+current_ip='-'
+if [[ -f ${BBCFDYNDNS_CURRENT} ]]; then
+    current_ip=$(head -1 ${BBCFDYNDNS_CURRENT})
+fi
+
+actual_ip=$(curl -s https://api.ipify.org)
+echo ${actual_ip} > ${BBCFDYNDNS_CURRENT}
+
+if [[ ${current_ip} = ${actual_ip} ]]; then
+    echo IP not changed
+    exit 0
+fi
